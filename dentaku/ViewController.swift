@@ -17,10 +17,10 @@ class ViewController: UIViewController {
     //ユーザが入力した演算子
     var InputSym: String = ""
     
-    //演算対象の数字
+    //演算子を押す前の数字
     var target: Double = 0.0
     
-    //演算結果の数字
+    //演算子を押した後の数字
     var resultValue: Double = 0.0
     
     //targetに値が入っているかどうか
@@ -51,34 +51,39 @@ class ViewController: UIViewController {
     @IBAction func inputNumber(_ sender: UIButton) {
         
         //数値が初入力だったら、UserInputtingをtrueにして、InputNumに値を入力
-        //それ以外は、InputNumの値をOutputに設定して、新しくInputの次桁に入力
+
         if userInputting == false {
             userInputting = true
             InputNum = (sender.titleLabel?.text)!
-        } else {
+            
+            //Outputに出力
+            Output.text = InputNum
+        } else {//それ以外は、InputNumの値をOutputに設定して、新しくInputの次桁に入力。
             
             InputNum = Output.text!
             InputNum += (sender.titleLabel?.text)!
             
+            //targetに値が入っていれば、新しく入った値からresultvalueに設定
+            //出力は前項も
             if isStacked == true
             {
                 resultValue = Double(InputNum)!
-            }
-            
+                Output.text = String(target) + InputNum
+            } else {
             
             //outputに出力
             Output.text = InputNum
-            
+            }
         }
     }
     
-        //四則演算と小数点の入力
+        //四則演算の入力
         @IBAction func Symbol(_ sender: UIButton) {
             
-            //数値が見入力だったら
+            //数値が見入力だったら演算子は入力できない
             if userInputting == false {
                 InputSym = ""
-            } else {
+            } else { //InputSymに演算子を設定。既に入っている数値はtargetに設定し、inputを初期化
                 InputSym = (sender.titleLabel?.text)!
                 target = Double(InputNum)!
                 InputNum = ""
@@ -91,22 +96,24 @@ class ViewController: UIViewController {
         
         
         @IBAction func Caluculate(_ sender: UIButton) {
+            //設定されているInputSymを持ってくる
+            let currentSym: String = InputSym
             afterCalc = true
             isStacked = false
-            switch InputSym {
+            switch currentSym {
             case "+":
-                resultValue += target
-            case "−":
-                resultValue -= target
+                target += resultValue
+            case "-":
+                target -= resultValue
             case "×":
-                resultValue *= target
+                target *= resultValue
             case "÷":
-                resultValue /= target
+                target /= resultValue
             default:
                 break
             }
-             target = resultValue
-            Result.text = String(resultValue)
+            //計算結果をresultに出力
+            Result.text = String(target)
             
         }
         
