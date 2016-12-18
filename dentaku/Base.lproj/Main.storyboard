@@ -79,7 +79,7 @@
                                 <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="合計"/>
                                 <connections>
-                                    <action selector="formula:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZRb-gU-hmI"/>
+                                    <action selector="Caluculate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TM0-aT-hVq"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hK5-c5-89B">
@@ -142,7 +142,7 @@
                                 <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="."/>
                                 <connections>
-                                    <action selector="Symbol:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1bM-jO-0ZH"/>
+                                    <action selector="inputNumber:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3ua-Sz-qpN"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="11" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PW4-p3-4Rz">

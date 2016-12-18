@@ -10,14 +10,18 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    //ユーザが入力した数値の格納場所
+    var InputNum: String = ""
+    
+    //ユーザが入力した演算子
+    var InputSym: String = ""
+    
+    //演算対象の数字
+    var targetNum: Double? = nil
+    
     //ユーザが一つの値を入力している間はfalse
     //演算子もしくは、合計が押されるとtrueになる
     var userInputting: Bool = false
-    
-    //とりあえずボタンから入力された値を入れる箱
-    var Digit: Int = 0
-    //InputNumを複数桁にする箱
-    var InputNum: Int = 0
     
     @IBOutlet weak var Output: UITextField!
     
@@ -31,55 +35,84 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    //0~9までの値入力
-    //タグ値は出力値と同じ
+    //0~9、「.」までの値入力
     @IBAction func inputNumber(_ sender: UIButton) {
-        let tagNum: Int = sender.tag
         
-        switch tagNum{
-        case 0:
-            Digit = 0
-        case 1:
-            Digit = 1
-        case 2:
-            Digit = 2
-        case 3:
-            Digit = 3
-        case 4:
-            Digit = 4
-        case 5:
-            Digit = 5
-        case 6:
-            Digit = 6
-        case 7:
-            Digit = 7
-        case 8:
-            Digit = 8
-        case 9:
-            Digit = 9
-        default : break
-        }
-        
-        if userInputting == false && Digit == 0{
-            Output.text = ""
-        } else {
-            InputNum += Digit
+        //数値が初入力だったら、UserInputtingをtrueにして、InputNumに値を入力
+        //それ以外は、InputNumの値をOutputに設定して、新しくInputの次桁に入力
+        if userInputting == false {
             userInputting = true
+            InputNum = (sender.titleLabel?.text)!
+        } else {
+            InputNum = Output.text!
+            InputNum += (sender.titleLabel?.text)!
         }
-        Output.text = String(InputNum)
+        
+        //outputに出力
+        Output.text = InputNum
+        
     }
     
     //四則演算と小数点の入力
-    //「.」:10「÷」:11「×」:12「+」:13「−」:14
+    //「÷」:11「×」:12「+」:13「−」:14
     @IBAction func Symbol(_ sender: UIButton) {
+        
+        //数値が見入力だったら
+        if userInputting == false {
+            InputSym = ""
+        } else {
+            InputSym = (sender.titleLabel?.text)!
+        }
+        
+        Output.text = InputNum + InputSym
     }
+    
+    
+    @IBAction func Caluculate(_ sender: UIButton) {
+//        userInputting == false
+//        
+//        if InputNum != ""  && InputSym != "" {
+//            var resultNum: Double = resultValue
+//            
+//            switch InputSym {
+////            case "×":
+//                resultValue = Double(InputNum)! * resultNum
+//            case "÷":
+//                if resultNum == 0 {
+//                    return
+//                } else {
+//                    resultValue = Double(InputNum)! / resultNum
+//                }
+//            case "+":
+//                resultValue = Double(InputNum)! + resultNum
+//            case "-":
+//                resultValue = Double(InputNum)! - resultNum
+//            default:
+//                break
+//            }
+//        }
+//        
+//        InputSym = ""
+//        resultValue = Double(InputNum)!
+    }
+
     
     //入力値の削除、決定
     //「×」:15「C」:16「合計」:17
-    @IBAction func formula(_ sender: UIButton) {
+//    @IBAction func formula(_ sender: UIButton) {
+//        
+//
+//    }
+    
+    //計算をやり直すためのfunc
+    var resultValue: Double {
+        get {
+            return NumberFormatter().number(from: Output.text!)!.doubleValue
+        }
+        set {
+            Output.text = "\(newValue)"
+        }
     }
-    
-    
     
     
 }
