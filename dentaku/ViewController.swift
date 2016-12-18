@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     var InputSym: String = ""
     
     //演算対象の数字
-    var targetNum: Double? = nil
+    var target: Double? = nil
     
     //ユーザが一つの値を入力している間はfalse
     //演算子もしくは、合計が押されるとtrueになる
@@ -69,49 +69,6 @@ class ViewController: UIViewController {
     
     
     @IBAction func Caluculate(_ sender: UIButton) {
-//        userInputting == false
-//        
-//        if InputNum != ""  && InputSym != "" {
-//            var resultNum: Double = resultValue
-//            
-//            switch InputSym {
-////            case "×":
-//                resultValue = Double(InputNum)! * resultNum
-//            case "÷":
-//                if resultNum == 0 {
-//                    return
-//                } else {
-//                    resultValue = Double(InputNum)! / resultNum
-//                }
-//            case "+":
-//                resultValue = Double(InputNum)! + resultNum
-//            case "-":
-//                resultValue = Double(InputNum)! - resultNum
-//            default:
-//                break
-//            }
-//        }
-//        
-//        InputSym = ""
-//        resultValue = Double(InputNum)!
-    }
-
-    
-    //入力値の削除、決定
-    //「×」:15「C」:16「合計」:17
-//    @IBAction func formula(_ sender: UIButton) {
-//        
-//
-//    }
-    
-    //計算をやり直すためのfunc
-    var resultValue: Double {
-        get {
-            return NumberFormatter().number(from: Output.text!)!.doubleValue
-        }
-        set {
-            Output.text = "\(newValue)"
-        }
     }
     
     
