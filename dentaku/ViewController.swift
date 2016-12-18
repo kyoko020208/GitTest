@@ -1,3 +1,4 @@
+
 //
 //  ViewController.swift
 //  dentaku
@@ -17,13 +18,24 @@ class ViewController: UIViewController {
     var InputSym: String = ""
     
     //演算対象の数字
-    var target: Double? = nil
+    var target: Double = 0.0
+    
+    //演算結果の数字
+    var resultValue: Double = 0.0
+    
+    //targetに値が入っているかどうか
+    var isStacked: Bool = false
+    
+    //演算子ボタンを押した後かどうか
+    var afterCalc: Bool = false
     
     //ユーザが一つの値を入力している間はfalse
     //演算子もしくは、合計が押されるとtrueになる
     var userInputting: Bool = false
     
     @IBOutlet weak var Output: UITextField!
+    
+    @IBOutlet weak var Result: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,33 +56,60 @@ class ViewController: UIViewController {
             userInputting = true
             InputNum = (sender.titleLabel?.text)!
         } else {
+            
             InputNum = Output.text!
             InputNum += (sender.titleLabel?.text)!
+            
+            if isStacked == true
+            {
+                resultValue = Double(InputNum)!
+            }
+            
+            
+            //outputに出力
+            Output.text = InputNum
+            
+        }
+    }
+    
+        //四則演算と小数点の入力
+        @IBAction func Symbol(_ sender: UIButton) {
+            
+            //数値が見入力だったら
+            if userInputting == false {
+                InputSym = ""
+            } else {
+                InputSym = (sender.titleLabel?.text)!
+                target = Double(InputNum)!
+                InputNum = ""
+                afterCalc = true
+                isStacked = true
+            }
+            
+            Output.text = InputNum + InputSym
         }
         
-        //outputに出力
-        Output.text = InputNum
         
-    }
-    
-    //四則演算と小数点の入力
-    //「÷」:11「×」:12「+」:13「−」:14
-    @IBAction func Symbol(_ sender: UIButton) {
-        
-        //数値が見入力だったら
-        if userInputting == false {
-            InputSym = ""
-        } else {
-            InputSym = (sender.titleLabel?.text)!
+        @IBAction func Caluculate(_ sender: UIButton) {
+            afterCalc = true
+            isStacked = false
+            switch InputSym {
+            case "+":
+                resultValue += target
+            case "−":
+                resultValue -= target
+            case "×":
+                resultValue *= target
+            case "÷":
+                resultValue /= target
+            default:
+                break
+            }
+             target = resultValue
+            Result.text = String(resultValue)
+            
         }
         
-        Output.text = InputNum + InputSym
-    }
-    
-    
-    @IBAction func Caluculate(_ sender: UIButton) {
-    }
-    
-    
+        
 }
 
